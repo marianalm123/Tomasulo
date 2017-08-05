@@ -16,11 +16,20 @@ public class Tomasulo {
     /**
      * @param args the command line arguments
      */
+    
+    public void despacho(){
+        
+    }
+    
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-       Memoria teste = new Memoria();
-       teste.criaMemInstr();
+       Memoria memoriaInstrucao = new Memoria();
+       memoriaInstrucao.criaMemInstr();
+       memoriaInstrucao.selecionaInstrucao();
        
+     
     }
+    
+    
     
 }

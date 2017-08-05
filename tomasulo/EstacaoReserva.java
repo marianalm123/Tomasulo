@@ -16,19 +16,21 @@ public class EstacaoReserva {
     public String nome; //nome da estação de reserva
     public int Vj; //valor do operando
     public int Vk; //valor do operando
-    public Enum Qj; //nome da estação de reserva produzindo Vj
-    public Enum Qk; //nome da estação de reserva produzindo Vk
-    public Enum operation; //tipo de operação
+    public String Qj; //nome da estação de reserva produzindo Vj
+    public String Qk; //nome da estação de reserva produzindo Vk
+    public int operation; //tipo de operação
     public int A; //valor do valor imediato
     public boolean busy; //verifica se estação esta ocupada
     
     public boolean resultadoPronto; //flag que indica que o resultado está pronto para ser escrito
     public boolean resultadoEscrito; //flag que indica que o resultado foi escrito
     
+    Registrador[] RegisterStat;
+    
     public EstacaoReserva(String nome){
         this.nome = nome;
         busy = false;
-        operation = null;
+        operation = 0;
         Vj = Vk = A = 0;
         Qj = Qk = null;
         resultadoPronto = false;
@@ -37,7 +39,7 @@ public class EstacaoReserva {
     
     public void limpaEstacao(){
         busy = false;
-        operation = null;
+        operation = 0;
         Vj = Vk = A = 0;
         Qj = Qk = null;
         resultadoPronto = false;
@@ -49,5 +51,7 @@ public class EstacaoReserva {
         return(busy == true && Qj == null && 
                Qk == null && resultadoPronto == false);
     }
+    
+    
     
 }

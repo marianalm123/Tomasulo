@@ -9,11 +9,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import static java.lang.Integer.parseInt;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-import tomasulo.Registrador;
+import static javax.xml.bind.DatatypeConverter.parseInteger;
 
 /**
  *
@@ -38,7 +37,7 @@ public class Instruçoes {
     }
     private int tipoInstr;
         
-    public int transformaInstrucao( ){
+    public int transformaInstrucao( String tipoInstrucao ){
         
         switch(tipoInstrucao){
             case "ADD":
@@ -90,14 +89,14 @@ public class Instruçoes {
         return tipoInstr;
     }
     
-    private String tipoInstrucao;
-    private String op1;
-    private String op2;
-    private String dest;
-    private String valorImediato;
+    private int tipoInstrucao1;
+    private int op1;
+    private int op2;
+    private int dest;
+    private int valorImediato;
     public ArrayList<String> listaInstrucoes = new ArrayList();
-
     
+    Registrador r;
     
     public ArrayList<String> lerArqInstrucoes() throws  IOException {
         
@@ -109,6 +108,79 @@ public class Instruçoes {
         }
         leitor.close();
         return linhas;
+    }
+    
+    public int[] decodificaInstr(ArrayList<String> instru){// aqui quebra cada linha do array de instruçoes e coloca nas variaveis
+        for(int i=0; i< instru.size(); i++){
+            String[] teste = null;
+            String linha = instru.get(i);
+            teste = linha.split(" ");
+            
+            if(teste.length == 4){
+                
+                this.tipoInstrucao1 = transformaInstrucao(teste[0]);
+                this.dest = r.transformaRegistrador(teste[1]);
+                this.op1 = r.transformaRegistrador(teste[2]);
+                this.op2 = r.transformaRegistrador(teste[3]);
+                return  insereInstr4(this.tipoInstrucao1, this.dest, this.op1, this.op2);
+                
+            }else{
+                if(teste.length == 3){
+                    this.tipoInstrucao1 = transformaInstrucao(teste[0]);                    
+                    this.dest = r.transformaRegistrador(teste[1]);
+                    this.op1 = r.transformaRegistrador(teste[2]);
+                    return  insereInstr3(this.tipoInstrucao1, this.dest, this.op1);
+                    
+                }else{
+                    if(teste.length == 2){
+                        this.tipoInstrucao1 = transformaInstrucao(teste[0]);
+                        this.dest = r.transformaRegistrador(teste[1]);
+                        return  insereInstr2(this.tipoInstrucao1, this.dest);
+                    }
+                }
+            }
+        }
+        return insereInstr0();
+    }
+    
+    
+    public int[] insereInstr4(int tipoInstrucao1,int op1, int op2, int dest){
+        r = new Registrador();
+        r.opcode = tipoInstrucao1;
+        r.rd = dest;
+        r.rs = op1;
+        r.rt = op2;
+        
+        int[] vet = {r.opcode, r.rd, r.rs, r.rt};
+        
+        return vet;
+    }
+    
+    public int[] insereInstr3(int tipoInstrucao1,int op1, int op2){
+        r = new Registrador();
+        r.opcode = tipoInstrucao1;
+        r.rd = dest;
+        r.rs = op1;
+        
+        int[] vet = {r.opcode, r.rd, r.rs};
+        
+        return vet;
+    }
+    
+    public int[] insereInstr2(int tipoInstrucao1,int op1){
+        r = new Registrador();
+        r.opcode = tipoInstrucao1;
+        r.rd = dest;
+        
+        int[] vet = {r.opcode, r.rd};
+        
+        return vet;
+    }
+    public int[] insereInstr0(){
+        r = new Registrador();
+        int[] vet = {};
+        
+        return vet;
     }
     
 }

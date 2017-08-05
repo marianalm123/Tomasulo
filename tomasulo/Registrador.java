@@ -24,11 +24,10 @@ public class Registrador {
         public int getValorReg(){
             return valorRegistrador;
         }
-    }
-    public String tipoRegistrador;
+    } 
     public int tipoReg;
     
-    public int transformaRegistrador(){
+    public int transformaRegistrador(String tipoRegistrador){
         switch(tipoRegistrador){
             case "ZERO":
                 tipoReg = RegistradorEnum.ZERO.getValorReg();
@@ -61,6 +60,23 @@ public class Registrador {
         return tipoReg;
     }
     
+    /*
     
+   REG é um Array de valores dos registradores, onde cada posição 
+   é referente ao tipo de registrador.
+    
+    exemplo: REG[2] é referente ao valor contido no R2 e assim por 
+    
+    */
+    
+    String[] REG = null;
+    int opcode;
+    int rs; //registrador fonte
+    int rt; //registrador fonte
+    int rd; //registrador de destino
+    
+    int Qi ;
+    
+ 
     
 }

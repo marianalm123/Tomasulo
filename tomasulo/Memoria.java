@@ -11,23 +11,30 @@ import java.util.ArrayList;
  *
  * @author MARIANA
  */
-public class Memoria  {
-    private int[] memDados = new int[256];
+public class Memoria {
+    
     Instruçoes instr = new Instruçoes();
     private ArrayList<String> memInstrucao;
-    int pc;    
+    
+    int pc = 0;    
     
     public void criaMemInstr() throws IOException{
        memInstrucao = instr.lerArqInstrucoes();
        System.out.println(memInstrucao);
     }
     
-    public int retornaPC(){
+    public void selecionaInstrucao(){
+        instr.decodificaInstr(memInstrucao);
+    }
+    
+    public int getPC(){
         for(int i=0; i <= memInstrucao.size(); i++){
-            pc = 1;
+            pc = i;
         }
         return pc;        
     }
+    
+    
     
     
     
